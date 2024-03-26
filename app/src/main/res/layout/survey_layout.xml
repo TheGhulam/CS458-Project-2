@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText
+            android:id="@+id/nameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name-surname" />
+
+        <EditText
+            android:id="@+id/birthDateEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Birth Date"
+            android:inputType="date" />
+
+        <Spinner
+            android:id="@+id/educationLevelSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/education_levels" />
+
+        <EditText
+            android:id="@+id/cityEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="City" />
+
+        <RadioGroup
+            android:id="@+id/genderRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/maleRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male" />
+
+            <RadioButton
+                android:id="@+id/femaleRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female" />
+
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AI models tried:" />
+
+        <CheckBox
+            android:id="@+id/chatgptCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ChatGPT" />
+
+        <EditText
+            android:id="@+id/chatgptDefectsEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="ChatGPT defects/cons"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:id="@+id/bardCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bard" />
+
+        <EditText
+            android:id="@+id/bardDefectsEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Bard defects/cons"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:id="@+id/claudeCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Claude" />
+
+        <EditText
+            android:id="@+id/claudeDefectsEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Claude defects/cons"
+            android:visibility="gone" />
+
+        <CheckBox
+            android:id="@+id/copilotCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Copilot" />
+
+        <EditText
+            android:id="@+id/copilotDefectsEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Copilot defects/cons"
+            android:visibility="gone" />
+
+        <EditText
+            android:id="@+id/beneficialUseCaseEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Beneficial use case of AI in daily life" />
+
+        <Button
+            android:id="@+id/sendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</ScrollView>
