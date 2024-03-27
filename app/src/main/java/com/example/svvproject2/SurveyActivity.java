@@ -2,7 +2,9 @@ package com.example.svvproject2;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -110,6 +112,21 @@ public class SurveyActivity extends AppCompatActivity implements SurveyActivityI
             // Perform further processing or send the data to a server
 
             Toast.makeText(SurveyActivity.this, "Survey submitted", Toast.LENGTH_SHORT).show();
+        });
+
+        beneficialUseCaseEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                updateSendButtonVisibility(); // Check if form is filled after text change
+            }
         });
     }
 
