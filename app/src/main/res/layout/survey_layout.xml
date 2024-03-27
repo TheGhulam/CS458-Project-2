@@ -15,12 +15,23 @@
             android:layout_height="wrap_content"
             android:hint="Name-surname" />
 
-        <EditText
-            android:id="@+id/birthDateEditText"
+<!--        <EditText-->
+<!--            android:id="@+id/birthDateEditText"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:hint="Birth Date"-->
+<!--            android:inputType="date" />-->
+
+        <DatePicker
+            android:id="@+id/birthDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/birthDateButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Birth Date"
-            android:inputType="date" />
+            android:text="Choose Birthdate" />
 
         <Spinner
             android:id="@+id/educationLevelSpinner"

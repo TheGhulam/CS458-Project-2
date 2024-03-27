@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -12,10 +13,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Calendar;
+
 public class SurveyActivity extends AppCompatActivity implements SurveyActivityInterface {
 
     private EditText nameEditText;
-    private EditText birthDateEditText;
+//    private EditText birthDateEditText;
+    private DatePicker birthDatePicker;
     private Spinner educationLevelSpinner;
     private EditText cityEditText;
     private RadioButton maleRadioButton;
@@ -37,7 +41,8 @@ public class SurveyActivity extends AppCompatActivity implements SurveyActivityI
         setContentView(R.layout.survey_layout);
 
         nameEditText = findViewById(R.id.nameEditText);
-        birthDateEditText = findViewById(R.id.birthDateEditText);
+//        birthDateEditText = findViewById(R.id.birthDateEditText);
+        birthDatePicker = findViewById(R.id.birthDate);
         educationLevelSpinner = findViewById(R.id.educationLevelSpinner);
         cityEditText = findViewById(R.id.cityEditText);
         maleRadioButton = findViewById(R.id.maleRadioButton);
@@ -75,7 +80,13 @@ public class SurveyActivity extends AppCompatActivity implements SurveyActivityI
 
         sendButton.setOnClickListener(v -> {
             String name = nameEditText.getText().toString().trim();
-            String birthDate = birthDateEditText.getText().toString().trim();
+//            String birthDate = birthDateEditText.getText().toString().trim();
+            int day = birthDatePicker.getDayOfMonth();
+            int month = birthDatePicker.getMonth();
+            int year = birthDatePicker.getYear();
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(year, month, day);
+            String birthDate = String.format("%d-%d-%d", day, month + 1, year);
             String educationLevel = educationLevelSpinner.getSelectedItem().toString();
             String city = cityEditText.getText().toString().trim();
             String gender = maleRadioButton.isChecked() ? "Male" : "Female";
@@ -93,7 +104,8 @@ public class SurveyActivity extends AppCompatActivity implements SurveyActivityI
 
     private void updateSendButtonVisibility() {
         boolean isFormFilled = !TextUtils.isEmpty(nameEditText.getText().toString().trim())
-                && !TextUtils.isEmpty(birthDateEditText.getText().toString().trim())
+//                && !TextUtils.isEmpty(birthDateEditText.getText().toString().trim())
+                && (birthDatePicker != null)
                 && !TextUtils.isEmpty(cityEditText.getText().toString().trim())
                 && (maleRadioButton.isChecked() || femaleRadioButton.isChecked())
                 && !TextUtils.isEmpty(beneficialUseCaseEditText.getText().toString().trim());
