@@ -70,5 +70,4 @@ dependencies {
 
     // Appium dependencies
     testImplementation("io.appium:java-client:7.6.0")
-    androidTestImplementation("io.appium:java-client:7.6.0")
 }

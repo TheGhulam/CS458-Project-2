@@ -132,7 +132,7 @@ public class SurveyActivity extends AppCompatActivity implements SurveyActivityI
 
     private void updateSendButtonVisibility() {
         boolean isFormFilled = !TextUtils.isEmpty(nameEditText.getText().toString().trim())
-                && !TextUtils.isEmpty(birthDate)
+//                && !TextUtils.isEmpty(birthDate)
                 && !TextUtils.isEmpty(cityEditText.getText().toString().trim())
                 && (maleRadioButton.isChecked() || femaleRadioButton.isChecked())
                 && !TextUtils.isEmpty(beneficialUseCaseEditText.getText().toString().trim());

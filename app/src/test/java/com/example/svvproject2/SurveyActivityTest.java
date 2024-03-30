@@ -1,11 +1,17 @@
 package com.example.svvproject2;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -34,11 +40,14 @@ public class SurveyActivityTest {
 
 //        MobileElement birthDateButton = driver.findElementById("birthDateButton");
 //        birthDateButton.click();
-        // Select birth date from the date picker dialog
+//        driver.findElementByXPath("//*[@class='android.widget.NumberPicker' and @index='0']").sendKeys("15");
+//        driver.findElementByXPath("//*[@class='android.widget.NumberPicker' and @index='1']").sendKeys("10");
+//        driver.findElementByXPath("//*[@class='android.widget.NumberPicker' and @index='2']").sendKeys("1990");
+//        driver.findElementById("android:id/button1").click();
 
-//        MobileElement educationLevelSpinner = driver.findElementById("educationLevelSpinner");
-//        educationLevelSpinner.click();
-        // Select education level from the spinner
+        MobileElement educationLevelSpinner = driver.findElementById("educationLevelSpinner");
+        educationLevelSpinner.click();
+        driver.findElementByXPath("//*[@text='Bachelor']").click();
 
         MobileElement cityEditText = driver.findElementById("cityEditText");
         cityEditText.sendKeys("New York");
@@ -46,18 +55,25 @@ public class SurveyActivityTest {
         MobileElement maleRadioButton = driver.findElementById("maleRadioButton");
         maleRadioButton.click();
 
+        MobileElement beneficialUseCaseEditText = driver.findElementById("beneficialUseCaseEditText");
+        beneficialUseCaseEditText.sendKeys("AI can assist in various tasks");
+
         MobileElement chatgptCheckBox = driver.findElementById("chatgptCheckBox");
         chatgptCheckBox.click();
         MobileElement chatgptDefectsEditText = driver.findElementById("chatgptDefectsEditText");
         chatgptDefectsEditText.sendKeys("Some defects");
 
-        MobileElement beneficialUseCaseEditText = driver.findElementById("beneficialUseCaseEditText");
-        beneficialUseCaseEditText.sendKeys("AI can assist in various tasks");
+        // Wait for the send button to become visible
+        WebDriverWait wait = new WebDriverWait(driver, 2);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sendButton")));
 
         MobileElement sendButton = driver.findElementById("sendButton");
+        assertTrue(sendButton.isDisplayed()); // Assert that the send button is visible
         sendButton.click();
 
         // Assert that the survey was submitted successfully
+        String toastMessage = driver.findElementByXPath("//android.widget.Toast").getText();
+        assertEquals("Survey submitted", toastMessage);
     }
 
     @Test
