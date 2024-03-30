@@ -46,6 +46,13 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/birthdayErrorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_red_dark"
+            android:visibility="gone" />
+
         <Spinner
             android:id="@+id/educationLevelSpinner"
             android:layout_width="match_parent"

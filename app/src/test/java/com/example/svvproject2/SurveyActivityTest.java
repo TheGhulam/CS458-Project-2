@@ -17,6 +17,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.List;
 
 public class SurveyActivityTest {
@@ -163,6 +164,53 @@ public class SurveyActivityTest {
         // Assert that the survey was submitted successfully
         String toastMessage = driver.findElementByXPath("//android.widget.Toast").getText();
         assertEquals("Survey submitted", toastMessage);
+    }
+
+    @Test
+    public void testInvalidBirthdayInput() {
+        // Fill all fields except birthday
+        MobileElement nameEditText = driver.findElementById("nameEditText");
+        nameEditText.sendKeys("John Doe");
+
+        MobileElement educationLevelSpinner = driver.findElementById("educationLevelSpinner");
+        educationLevelSpinner.click();
+        driver.findElementByXPath("//*[@text='Bachelor']").click();
+
+        MobileElement cityEditText = driver.findElementById("cityEditText");
+        cityEditText.sendKeys("New York");
+
+        MobileElement maleRadioButton = driver.findElementById("maleRadioButton");
+        maleRadioButton.click();
+
+        MobileElement beneficialUseCaseEditText = driver.findElementById("beneficialUseCaseEditText");
+        beneficialUseCaseEditText.sendKeys("AI can assist in various tasks");
+
+        // Enter an invalid birthday (less than 12 years old)
+        MobileElement dayEditText = driver.findElementById("dayEditText");
+        dayEditText.sendKeys("15");
+
+        MobileElement monthEditText = driver.findElementById("monthEditText");
+        monthEditText.sendKeys("6");
+
+        MobileElement yearEditText = driver.findElementById("yearEditText");
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        yearEditText.sendKeys(String.valueOf(currentYear - 10)); // Set year to 10 years ago
+
+        // Wait for a short duration
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Assert that the send button is not visible
+        List<MobileElement> sendButtonList = driver.findElementsById("sendButton");
+        assertTrue(sendButtonList.isEmpty()); // Assert that the send button is not found
+
+        // Assert that the error message is displayed
+        MobileElement birthdayErrorTextView = driver.findElementById("birthdayErrorTextView");
+        assertTrue(birthdayErrorTextView.isDisplayed());
+        assertEquals("User must be at least 12 years old", birthdayErrorTextView.getText());
     }
 
     @After

@@ -11,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -143,6 +144,42 @@ public class SurveyActivity extends AppCompatActivity implements SurveyActivityI
                 && (maleRadioButton.isChecked() || femaleRadioButton.isChecked())
                 && !TextUtils.isEmpty(beneficialUseCaseEditText.getText().toString().trim());
 
+        TextView birthdayErrorTextView = findViewById(R.id.birthdayErrorTextView);
+
+        if (isFormFilled) {
+            int age = calculateAge(
+                    Integer.parseInt(yearEditText.getText().toString().trim()),
+                    Integer.parseInt(monthEditText.getText().toString().trim()),
+                    Integer.parseInt(dayEditText.getText().toString().trim())
+            );
+            if (age < 0) {
+                isFormFilled = false;
+                birthdayErrorTextView.setText("Birth date must be in the past");
+                birthdayErrorTextView.setVisibility(View.VISIBLE);
+            } else if (age < 12) {
+                isFormFilled = false;
+                birthdayErrorTextView.setText("User must be at least 12 years old");
+                birthdayErrorTextView.setVisibility(View.VISIBLE);
+            } else {
+                birthdayErrorTextView.setVisibility(View.GONE);
+            }
+        }
+
         sendButton.setVisibility(isFormFilled ? View.VISIBLE : View.GONE);
+    }
+
+    private int calculateAge(int year, int month, int day) {
+        Calendar dob = Calendar.getInstance();
+        dob.set(year, month - 1, day);
+
+        Calendar today = Calendar.getInstance();
+
+        int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
+
+        if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR)) {
+            age--;
+        }
+
+        return age;
     }
 }
