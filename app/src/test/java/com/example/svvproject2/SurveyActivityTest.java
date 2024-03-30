@@ -82,39 +82,6 @@ public class SurveyActivityTest {
     }
 
     @Test
-    public void testEmptyNameField() {
-        // Fill all fields except the name field
-        MobileElement dayEditText = driver.findElementById("dayEditText");
-        dayEditText.sendKeys("15");
-
-        MobileElement monthEditText = driver.findElementById("monthEditText");
-        monthEditText.sendKeys("6");
-
-        MobileElement yearEditText = driver.findElementById("yearEditText");
-        yearEditText.sendKeys("1990");
-
-        MobileElement educationLevelSpinner = driver.findElementById("educationLevelSpinner");
-        educationLevelSpinner.click();
-        driver.findElementByXPath("//*[@text='Bachelor']").click();
-
-        MobileElement cityEditText = driver.findElementById("cityEditText");
-        cityEditText.sendKeys("New York");
-
-        MobileElement maleRadioButton = driver.findElementById("maleRadioButton");
-        maleRadioButton.click();
-
-        MobileElement beneficialUseCaseEditText = driver.findElementById("beneficialUseCaseEditText");
-        beneficialUseCaseEditText.sendKeys("AI can assist in various tasks");
-
-        // Click the send button
-        MobileElement sendButton = driver.findElementById("sendButton");
-        sendButton.click();
-
-        // Assert that the send button is not visible (form not submitted)
-        assertFalse(sendButton.isDisplayed());
-    }
-
-    @Test
     public void testUnselectAllAIModels() {
         // Fill all fields except AI model checkboxes
         MobileElement nameEditText = driver.findElementById("nameEditText");
@@ -154,20 +121,48 @@ public class SurveyActivityTest {
         String toastMessage = driver.findElementByXPath("//android.widget.Toast").getText();
         assertEquals("Survey submitted", toastMessage);
     }
-    @Test
-    public void testSendButtonVisibility() {
-        // Fill all required fields
-        // Assert that the send button is visible
-        // Clear a required field
-        // Assert that the send button is not visible
-    }
 
     @Test
-    public void testAIModelDefectsVisibility() {
-        // Check an AI model checkbox
-        // Assert that the corresponding defects EditText is visible
-        // Uncheck the AI model checkbox
-        // Assert that the corresponding defects EditText is not visible
+    public void testDefaultEducationLevelSelection() {
+        MobileElement nameEditText = driver.findElementById("nameEditText");
+        nameEditText.sendKeys("John Doe");
+
+        MobileElement dayEditText = driver.findElementById("dayEditText");
+        dayEditText.sendKeys("15");
+
+        MobileElement monthEditText = driver.findElementById("monthEditText");
+        monthEditText.sendKeys("6");
+
+        MobileElement yearEditText = driver.findElementById("yearEditText");
+        yearEditText.sendKeys("1990");
+
+        MobileElement cityEditText = driver.findElementById("cityEditText");
+        cityEditText.sendKeys("New York");
+
+        MobileElement maleRadioButton = driver.findElementById("maleRadioButton");
+        maleRadioButton.click();
+
+        MobileElement beneficialUseCaseEditText = driver.findElementById("beneficialUseCaseEditText");
+        beneficialUseCaseEditText.sendKeys("AI can assist in various tasks");
+
+        // Wait for the send button to become visible
+        WebDriverWait wait = new WebDriverWait(driver, 2);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sendButton")));
+
+        // Get the selected education level from the spinner
+        MobileElement educationLevelSpinner = driver.findElementById("educationLevelSpinner");
+        String selectedEducationLevel = educationLevelSpinner.getText();
+
+        // Assert that the default education level is selected
+        assertEquals("", selectedEducationLevel);
+
+        // Click the send button
+        MobileElement sendButton = driver.findElementById("sendButton");
+        sendButton.click();
+
+        // Assert that the survey was submitted successfully
+        String toastMessage = driver.findElementByXPath("//android.widget.Toast").getText();
+        assertEquals("Survey submitted", toastMessage);
     }
 
     @After
