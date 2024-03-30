@@ -299,7 +299,7 @@ public class SurveyActivityTest {
         chatgptDefectsEditText.sendKeys("Some defects");
 
         // Wait for the send button to become visible
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sendButton")));        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sendButton")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sendButton")));
 
         MobileElement sendButton = driver.findElementById("sendButton");
         sendButton.click();
