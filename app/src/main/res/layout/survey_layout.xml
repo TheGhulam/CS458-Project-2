@@ -15,11 +15,6 @@
             android:layout_height="wrap_content"
             android:hint="Name-surname" />
 
-<!--        <Button-->
-<!--            android:id="@+id/birthDateButton"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Choose Birthdate" />-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
