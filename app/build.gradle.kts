@@ -67,4 +67,8 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    // Appium dependencies
+    testImplementation("io.appium:java-client:7.6.0")
+    androidTestImplementation("io.appium:java-client:7.6.0")
 }
