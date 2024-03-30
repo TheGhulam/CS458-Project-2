@@ -39,13 +39,17 @@ public class SurveyActivity extends AppCompatActivity implements SurveyActivityI
     private int year, month, day;
     private String birthDate;
 
+    private EditText dayEditText;
+    private EditText monthEditText;
+    private EditText yearEditText;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.survey_layout);
 
         nameEditText = findViewById(R.id.nameEditText);
-        birthDateButton = findViewById(R.id.birthDateButton);
+//        birthDateButton = findViewById(R.id.birthDateButton);
         educationLevelSpinner = findViewById(R.id.educationLevelSpinner);
         cityEditText = findViewById(R.id.cityEditText);
         maleRadioButton = findViewById(R.id.maleRadioButton);
@@ -81,22 +85,45 @@ public class SurveyActivity extends AppCompatActivity implements SurveyActivityI
             updateSendButtonVisibility();
         });
 
-        final Calendar c = Calendar.getInstance();
-        year = c.get(Calendar.YEAR);
-        month = c.get(Calendar.MONTH);
-        day = c.get(Calendar.DAY_OF_MONTH);
+//        final Calendar c = Calendar.getInstance();
+//        year = c.get(Calendar.YEAR);
+//        month = c.get(Calendar.MONTH);
+//        day = c.get(Calendar.DAY_OF_MONTH);
+//
+//        birthDateButton.setOnClickListener(v -> {
+//            DatePickerDialog datePickerDialog = new DatePickerDialog(SurveyActivity.this,
+//                    (view, selectedYear, selectedMonth, selectedDay) -> {
+//                        year = selectedYear;
+//                        month = selectedMonth;
+//                        day = selectedDay;
+//                        birthDate = String.format("%d-%d-%d", day, month + 1, year); // Update birthDate
+//                        birthDateButton.setText(birthDate); // Set button text to selected date
+//                    }, year, month, day);
+//            datePickerDialog.show();
+//        });
 
-        birthDateButton.setOnClickListener(v -> {
-            DatePickerDialog datePickerDialog = new DatePickerDialog(SurveyActivity.this,
-                    (view, selectedYear, selectedMonth, selectedDay) -> {
-                        year = selectedYear;
-                        month = selectedMonth;
-                        day = selectedDay;
-                        birthDate = String.format("%d-%d-%d", day, month + 1, year); // Update birthDate
-                        birthDateButton.setText(birthDate); // Set button text to selected date
-                    }, year, month, day);
-            datePickerDialog.show();
-        });
+        dayEditText = findViewById(R.id.dayEditText);
+        monthEditText = findViewById(R.id.monthEditText);
+        yearEditText = findViewById(R.id.yearEditText);
+
+        TextWatcher textWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                updateSendButtonVisibility();
+            }
+        };
+
+        dayEditText.addTextChangedListener(textWatcher);
+        monthEditText.addTextChangedListener(textWatcher);
+        yearEditText.addTextChangedListener(textWatcher);
 
         sendButton.setOnClickListener(v -> {
             String name = nameEditText.getText().toString().trim();
@@ -133,6 +160,9 @@ public class SurveyActivity extends AppCompatActivity implements SurveyActivityI
     private void updateSendButtonVisibility() {
         boolean isFormFilled = !TextUtils.isEmpty(nameEditText.getText().toString().trim())
 //                && !TextUtils.isEmpty(birthDate)
+                && !TextUtils.isEmpty(dayEditText.getText().toString().trim())
+                && !TextUtils.isEmpty(monthEditText.getText().toString().trim())
+                && !TextUtils.isEmpty(yearEditText.getText().toString().trim())
                 && !TextUtils.isEmpty(cityEditText.getText().toString().trim())
                 && (maleRadioButton.isChecked() || femaleRadioButton.isChecked())
                 && !TextUtils.isEmpty(beneficialUseCaseEditText.getText().toString().trim());

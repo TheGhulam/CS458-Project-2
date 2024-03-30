@@ -1,7 +1,9 @@
 package com.example.svvproject2;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
@@ -15,6 +17,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
 
 public class SurveyActivityTest {
 
@@ -38,12 +41,14 @@ public class SurveyActivityTest {
         MobileElement nameEditText = driver.findElementById("nameEditText");
         nameEditText.sendKeys("John Doe");
 
-//        MobileElement birthDateButton = driver.findElementById("birthDateButton");
-//        birthDateButton.click();
-//        driver.findElementByXPath("//*[@class='android.widget.NumberPicker' and @index='0']").sendKeys("15");
-//        driver.findElementByXPath("//*[@class='android.widget.NumberPicker' and @index='1']").sendKeys("10");
-//        driver.findElementByXPath("//*[@class='android.widget.NumberPicker' and @index='2']").sendKeys("1990");
-//        driver.findElementById("android:id/button1").click();
+        MobileElement dayEditText = driver.findElementById("dayEditText");
+        dayEditText.sendKeys("15");
+
+        MobileElement monthEditText = driver.findElementById("monthEditText");
+        monthEditText.sendKeys("6");
+
+        MobileElement yearEditText = driver.findElementById("yearEditText");
+        yearEditText.sendKeys("1990");
 
         MobileElement educationLevelSpinner = driver.findElementById("educationLevelSpinner");
         educationLevelSpinner.click();
@@ -79,17 +84,76 @@ public class SurveyActivityTest {
     @Test
     public void testEmptyNameField() {
         // Fill all fields except the name field
+        MobileElement dayEditText = driver.findElementById("dayEditText");
+        dayEditText.sendKeys("15");
+
+        MobileElement monthEditText = driver.findElementById("monthEditText");
+        monthEditText.sendKeys("6");
+
+        MobileElement yearEditText = driver.findElementById("yearEditText");
+        yearEditText.sendKeys("1990");
+
+        MobileElement educationLevelSpinner = driver.findElementById("educationLevelSpinner");
+        educationLevelSpinner.click();
+        driver.findElementByXPath("//*[@text='Bachelor']").click();
+
+        MobileElement cityEditText = driver.findElementById("cityEditText");
+        cityEditText.sendKeys("New York");
+
+        MobileElement maleRadioButton = driver.findElementById("maleRadioButton");
+        maleRadioButton.click();
+
+        MobileElement beneficialUseCaseEditText = driver.findElementById("beneficialUseCaseEditText");
+        beneficialUseCaseEditText.sendKeys("AI can assist in various tasks");
+
         // Click the send button
-        // Assert that an error message is displayed for the empty name field
+        MobileElement sendButton = driver.findElementById("sendButton");
+        sendButton.click();
+
+        // Assert that the send button is not visible (form not submitted)
+        assertFalse(sendButton.isDisplayed());
     }
 
     @Test
     public void testUnselectAllAIModels() {
         // Fill all fields except AI model checkboxes
-        // Click the send button
-        // Assert that the survey can be submitted without selecting any AI model
-    }
+        MobileElement nameEditText = driver.findElementById("nameEditText");
+        nameEditText.sendKeys("John Doe");
 
+        MobileElement dayEditText = driver.findElementById("dayEditText");
+        dayEditText.sendKeys("15");
+
+        MobileElement monthEditText = driver.findElementById("monthEditText");
+        monthEditText.sendKeys("6");
+
+        MobileElement yearEditText = driver.findElementById("yearEditText");
+        yearEditText.sendKeys("1990");
+
+        MobileElement educationLevelSpinner = driver.findElementById("educationLevelSpinner");
+        educationLevelSpinner.click();
+        driver.findElementByXPath("//*[@text='Bachelor']").click();
+
+        MobileElement cityEditText = driver.findElementById("cityEditText");
+        cityEditText.sendKeys("New York");
+
+        MobileElement maleRadioButton = driver.findElementById("maleRadioButton");
+        maleRadioButton.click();
+
+        MobileElement beneficialUseCaseEditText = driver.findElementById("beneficialUseCaseEditText");
+        beneficialUseCaseEditText.sendKeys("AI can assist in various tasks");
+
+        // Wait for the send button to become visible
+        WebDriverWait wait = new WebDriverWait(driver, 2);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sendButton")));
+
+        // Click the send button
+        MobileElement sendButton = driver.findElementById("sendButton");
+        sendButton.click();
+
+        // Assert that the survey was submitted successfully
+        String toastMessage = driver.findElementByXPath("//android.widget.Toast").getText();
+        assertEquals("Survey submitted", toastMessage);
+    }
     @Test
     public void testSendButtonVisibility() {
         // Fill all required fields
