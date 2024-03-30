@@ -33,7 +33,7 @@ Install the UiAutomator2 driver using Appium:
 appium driver install uiautomator2
 ```
 
-Running Appium
+## Running Appium
 Open a command line or terminal.
 Start the Appium server by running the following command:
 
