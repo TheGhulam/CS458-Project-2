@@ -262,7 +262,7 @@ public class SurveyActivityTest {
     }
 
     @Test
-    public void testGenderSelection() {
+    public void testGenderExclusivity() {
         // Fill all fields with valid data
         MobileElement nameEditText = driver.findElementById("nameEditText");
         nameEditText.sendKeys("John Doe");
