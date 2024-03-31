@@ -52,6 +52,14 @@ Fills all fields, and ensures that send button is visible. After that a field is
 Fills some fields and checks for default submissions for education level selection and AI Models used.
 ![](public/testIncompleteInput.gif)
 
+## testInvalidBirthdayInput
+Ensures validation of birthday
+![](public/testInvalidBirthdayInput.gif)
+
+## testGenderExclusivity
+Ensures mutual exclusivity of gender selection
+![](public/testGenderExclusivity.gif)
+
 ## testAIModelCheckboxBehavior
 Ensures that the text field for AI model selection appears and disappears with checkbox click.
 ![](public/testAIModelCheckboxBehavior.gif)

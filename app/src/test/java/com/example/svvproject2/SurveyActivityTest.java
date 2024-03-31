@@ -38,6 +38,62 @@ public class SurveyActivityTest {
     }
 
     @Test
+    public void testSendButtonVisibility() {
+        // Fill all fields with valid data
+        MobileElement nameEditText = driver.findElementById("nameEditText");
+        nameEditText.sendKeys("John Doe");
+
+        MobileElement dayEditText = driver.findElementById("dayEditText");
+        dayEditText.sendKeys("15");
+
+        MobileElement monthEditText = driver.findElementById("monthEditText");
+        monthEditText.sendKeys("6");
+
+        MobileElement yearEditText = driver.findElementById("yearEditText");
+        yearEditText.sendKeys("1990");
+
+        MobileElement educationLevelSpinner = driver.findElementById("educationLevelSpinner");
+        educationLevelSpinner.click();
+        driver.findElementByXPath("//*[@text='Bachelor']").click();
+
+        MobileElement cityEditText = driver.findElementById("cityEditText");
+        cityEditText.sendKeys("New York");
+
+        MobileElement maleRadioButton = driver.findElementById("maleRadioButton");
+        maleRadioButton.click();
+
+        MobileElement chatgptCheckBox = driver.findElementById("chatgptCheckBox");
+        chatgptCheckBox.click();
+        MobileElement chatgptDefectsEditText = driver.findElementById("chatgptDefectsEditText");
+        chatgptDefectsEditText.sendKeys("Some defects");
+
+        MobileElement beneficialUseCaseEditText = driver.findElementById("beneficialUseCaseEditText");
+        beneficialUseCaseEditText.sendKeys("AI can assist in various tasks");
+
+        // Wait for the send button to become visible
+        WebDriverWait wait = new WebDriverWait(driver, 2);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sendButton")));
+
+        // Assert that the send button is visible
+        MobileElement sendButton = driver.findElementById("sendButton");
+        assertTrue(sendButton.isDisplayed());
+
+        // Clear the "BeneficialUseCase" field
+        beneficialUseCaseEditText.clear();
+
+        // Wait for a short duration
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Assert that the send button is not visible
+        List<MobileElement> sendButtonList = driver.findElementsById("sendButton");
+        assertTrue(sendButtonList.isEmpty()); // Assert that the send button is not found
+    }
+
+    @Test
     public void testIncompleteInput() {
         // Fill all fields except AI model checkboxes
         MobileElement nameEditText = driver.findElementById("nameEditText");
@@ -79,62 +135,6 @@ public class SurveyActivityTest {
         // Assert that the survey was submitted successfully
         String toastMessage = driver.findElementByXPath("//android.widget.Toast").getText();
         assertEquals("Survey submitted", toastMessage);
-
-        // Clear the "BeneficialUseCase" field
-        beneficialUseCaseEditText.clear();
-
-        // Wait for a short duration
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        // Assert that the send button is not visible
-        List<MobileElement> sendButtonList = driver.findElementsById("sendButton");
-        assertTrue(sendButtonList.isEmpty()); // Assert that the send button is not found
-    }
-
-    @Test
-    public void testSendButtonVisiblity() {
-        // Fill all fields with valid data
-        MobileElement nameEditText = driver.findElementById("nameEditText");
-        nameEditText.sendKeys("John Doe");
-
-        MobileElement dayEditText = driver.findElementById("dayEditText");
-        dayEditText.sendKeys("15");
-
-        MobileElement monthEditText = driver.findElementById("monthEditText");
-        monthEditText.sendKeys("6");
-
-        MobileElement yearEditText = driver.findElementById("yearEditText");
-        yearEditText.sendKeys("1990");
-
-        MobileElement educationLevelSpinner = driver.findElementById("educationLevelSpinner");
-        educationLevelSpinner.click();
-        driver.findElementByXPath("//*[@text='Bachelor']").click();
-
-        MobileElement cityEditText = driver.findElementById("cityEditText");
-        cityEditText.sendKeys("New York");
-
-        MobileElement maleRadioButton = driver.findElementById("maleRadioButton");
-        maleRadioButton.click();
-
-        MobileElement chatgptCheckBox = driver.findElementById("chatgptCheckBox");
-        chatgptCheckBox.click();
-        MobileElement chatgptDefectsEditText = driver.findElementById("chatgptDefectsEditText");
-        chatgptDefectsEditText.sendKeys("Some defects");
-
-        MobileElement beneficialUseCaseEditText = driver.findElementById("beneficialUseCaseEditText");
-        beneficialUseCaseEditText.sendKeys("AI can assist in various tasks");
-
-        // Wait for the send button to become visible
-        WebDriverWait wait = new WebDriverWait(driver, 2);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sendButton")));
-
-        // Assert that the send button is visible
-        MobileElement sendButton = driver.findElementById("sendButton");
-        assertTrue(sendButton.isDisplayed());
 
         // Clear the "BeneficialUseCase" field
         beneficialUseCaseEditText.clear();
