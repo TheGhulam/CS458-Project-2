@@ -45,5 +45,9 @@ Appium will start running and listen for test requests.
 # Tests
 
 ## testSendButtonVisiblity
-Fills all fields, and ensures that send button is visible. After that a field is cleared and its checked whether send button is invsibile.
+Fills all fields, and ensures that send button is visible. After that a field is cleared and its checked whether send button is invisible.
 ![](public/testSendButtonVisibility.gif)
+
+## testAIModelCheckboxBehavior
+Ensures that the text field for AI model selection appears and disappears with checkbox click.
+![](public/testAIModelCheckboxBehavior.gif)

@@ -319,6 +319,75 @@ public class SurveyActivityTest {
         assertEquals("Survey submitted", toastMessage);
     }
 
+    @Test
+    public void testAIModelCheckboxBehavior() {
+        // Fill all fields with valid data
+        MobileElement nameEditText = driver.findElementById("nameEditText");
+        nameEditText.sendKeys("John Doe");
+
+        MobileElement dayEditText = driver.findElementById("dayEditText");
+        dayEditText.sendKeys("15");
+
+        MobileElement monthEditText = driver.findElementById("monthEditText");
+        monthEditText.sendKeys("6");
+
+        MobileElement yearEditText = driver.findElementById("yearEditText");
+        yearEditText.sendKeys("1990");
+
+        MobileElement educationLevelSpinner = driver.findElementById("educationLevelSpinner");
+        educationLevelSpinner.click();
+        driver.findElementByXPath("//*[@text='Bachelor']").click();
+
+        MobileElement cityEditText = driver.findElementById("cityEditText");
+        cityEditText.sendKeys("New York");
+
+        MobileElement maleRadioButton = driver.findElementById("maleRadioButton");
+        maleRadioButton.click();
+
+        MobileElement beneficialUseCaseEditText = driver.findElementById("beneficialUseCaseEditText");
+        beneficialUseCaseEditText.sendKeys("AI can assist in various tasks");
+
+        // Select the ChatGPT checkbox and add a description
+        MobileElement chatgptCheckBox = driver.findElementById("chatgptCheckBox");
+        chatgptCheckBox.click();
+        MobileElement chatgptDefectsEditText = driver.findElementById("chatgptDefectsEditText");
+        String chatgptDescription = "Some defects";
+        chatgptDefectsEditText.sendKeys(chatgptDescription);
+
+        // Assert that the ChatGPT defects EditText is visible and contains the description
+        assertTrue(chatgptDefectsEditText.isDisplayed());
+        assertEquals(chatgptDescription, chatgptDefectsEditText.getText());
+
+        // Deselect the ChatGPT checkbox
+        chatgptCheckBox.click();
+
+        // Assert that the ChatGPT defects EditText is not present in the DOM
+        List<MobileElement> chatgptDefectsEditTextList = driver.findElementsById("chatgptDefectsEditText");
+        assertTrue(chatgptDefectsEditTextList.isEmpty());
+
+        // Select the ChatGPT checkbox again
+        chatgptCheckBox.click();
+
+        // Wait for the ChatGPT defects EditText to be visible again
+        WebDriverWait wait = new WebDriverWait(driver, 2);
+        chatgptDefectsEditText = (MobileElement) wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("chatgptDefectsEditText")));
+
+        // Assert that the ChatGPT defects EditText is visible and the description is same
+        assertTrue(chatgptDefectsEditText.isDisplayed());
+        assertEquals("Some defects", chatgptDefectsEditText.getText());
+
+        // Wait for the send button to become visible
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sendButton")));
+
+        // Click the send button
+        MobileElement sendButton = driver.findElementById("sendButton");
+        sendButton.click();
+
+        // Assert that the survey was submitted successfully
+        String toastMessage = driver.findElementByXPath("//android.widget.Toast").getText();
+        assertEquals("Survey submitted", toastMessage);
+    }
+
     @After
     public void tearDown() {
         driver.quit();
