@@ -41,3 +41,9 @@ Start the Appium server by running the following command:
 appium
 ```
 Appium will start running and listen for test requests.
+
+# Tests
+
+## testSendButtonVisiblity
+Fills all fields, and ensures that send button is visible. After that a field is cleared and its checked whether send button is invsibile.
+![](public/testSendButtonVisibility.gif)
