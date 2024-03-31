@@ -9,11 +9,21 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name-surname*" />
+
         <EditText
             android:id="@+id/nameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name-surname" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Birthday*" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,17 +63,32 @@
             android:textColor="@android:color/holo_red_dark"
             android:visibility="gone" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Education Level*" />
+
         <Spinner
             android:id="@+id/educationLevelSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/education_levels" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="City*" />
+
         <EditText
             android:id="@+id/cityEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="City" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gender*" />
 
         <RadioGroup
             android:id="@+id/genderRadioGroup"
@@ -142,6 +167,11 @@
             android:hint="Copilot defects/cons"
             android:visibility="gone" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Beneficial use case of AI in daily life*" />
+
         <EditText
             android:id="@+id/beneficialUseCaseEditText"
             android:layout_width="match_parent"
@@ -156,5 +186,4 @@
             android:visibility="invisible" />
 
     </LinearLayout>
-
 </ScrollView>
