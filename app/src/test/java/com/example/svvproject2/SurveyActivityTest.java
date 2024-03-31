@@ -38,8 +38,8 @@ public class SurveyActivityTest {
     }
 
     @Test
-    public void testFillSurveyForm() {
-        // Test if survey is filled and submitted properly
+    public void testSendButtonVisiblity() {
+        // Fill all fields with valid data
         MobileElement nameEditText = driver.findElementById("nameEditText");
         nameEditText.sendKeys("John Doe");
 
@@ -62,25 +62,35 @@ public class SurveyActivityTest {
         MobileElement maleRadioButton = driver.findElementById("maleRadioButton");
         maleRadioButton.click();
 
-        MobileElement beneficialUseCaseEditText = driver.findElementById("beneficialUseCaseEditText");
-        beneficialUseCaseEditText.sendKeys("AI can assist in various tasks");
-
         MobileElement chatgptCheckBox = driver.findElementById("chatgptCheckBox");
         chatgptCheckBox.click();
         MobileElement chatgptDefectsEditText = driver.findElementById("chatgptDefectsEditText");
         chatgptDefectsEditText.sendKeys("Some defects");
 
+        MobileElement beneficialUseCaseEditText = driver.findElementById("beneficialUseCaseEditText");
+        beneficialUseCaseEditText.sendKeys("AI can assist in various tasks");
+
         // Wait for the send button to become visible
         WebDriverWait wait = new WebDriverWait(driver, 2);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("sendButton")));
 
+        // Assert that the send button is visible
         MobileElement sendButton = driver.findElementById("sendButton");
-        assertTrue(sendButton.isDisplayed()); // Assert that the send button is visible
-        sendButton.click();
+        assertTrue(sendButton.isDisplayed());
 
-        // Assert that the survey was submitted successfully
-        String toastMessage = driver.findElementByXPath("//android.widget.Toast").getText();
-        assertEquals("Survey submitted", toastMessage);
+        // Clear the "BeneficialUseCase" field
+        beneficialUseCaseEditText.clear();
+
+        // Wait for a short duration
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Assert that the send button is not visible
+        List<MobileElement> sendButtonList = driver.findElementsById("sendButton");
+        assertTrue(sendButtonList.isEmpty()); // Assert that the send button is not found
     }
 
     @Test
